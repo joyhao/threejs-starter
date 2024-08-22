@@ -1,8 +1,8 @@
-import * as THREE from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import Stats from "stats.js";
-import vertex from "./shaders/vertex.glsl?raw";
-import fragment from "./shaders/fragment.glsl?raw";
+import * as THREE from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import Stats from 'stats.js';
+import vertex from './shaders/vertex.glsl?raw';
+import fragment from './shaders/fragment.glsl?raw';
 
 const initWebGL = (canvas: HTMLCanvasElement) => {
   const stats = new Stats();
@@ -12,7 +12,7 @@ const initWebGL = (canvas: HTMLCanvasElement) => {
 
   const sizes = {
     width: window.innerWidth,
-    height: window.innerHeight,
+    height: window.innerHeight
   };
 
   const scene = new THREE.Scene();
@@ -33,7 +33,7 @@ const initWebGL = (canvas: HTMLCanvasElement) => {
   const renderer = new THREE.WebGLRenderer({
     canvas: canvas,
     antialias: true,
-    alpha: true,
+    alpha: true
   });
 
   renderer.setSize(sizes.width, sizes.height);
@@ -49,12 +49,12 @@ const initWebGL = (canvas: HTMLCanvasElement) => {
 
   const material = new THREE.ShaderMaterial({
     uniforms: {
-      time: { value: 0 },
+      time: { value: 0 }
     },
     side: THREE.DoubleSide,
     wireframe: false,
     vertexShader: vertex,
-    fragmentShader: fragment,
+    fragmentShader: fragment
   });
 
   const geometry = new THREE.PlaneGeometry(
@@ -78,13 +78,13 @@ const initWebGL = (canvas: HTMLCanvasElement) => {
     let elapsedTime = clock.getElapsedTime();
     material.uniforms.time.value = elapsedTime;
 
-    requestAnimationFrame(render);
+    // requestAnimationFrame(render);
     renderer.render(scene, camera);
 
     stats.end();
   };
 
-  window.addEventListener("resize", () => {
+  window.addEventListener('resize', () => {
     sizes.width = window.innerWidth;
     sizes.height = window.innerHeight;
     camera.aspect = sizes.width / sizes.height;

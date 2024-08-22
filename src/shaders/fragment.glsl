@@ -1,15 +1,30 @@
-uniform float time;
-varying float vNoise;
-varying vec2 vUv;
-
-vec3 palette( in float t, in vec3 a, in vec3 b, in vec3 c, in vec3 d ) {
-    return a + b * cos(6.28318 * (c * t + d));
-}
-
 void main() {
-    // float PI = 3.1415925;
+    vec2 resolution = vec2(1920.0,929.0);
+    vec4 fragColor = vec4(0.0,0.0,0.0,0.0);
+    // gl_FragCoord 每个片元的屏幕坐标
+     // 计算出一个范围(屏幕坐标 转成 裁剪的坐标系)
 
-    vec3 color = palette(vNoise, vec3(0.5), vec3(0.5), vec3(1.0), vec3(0.0, .1, .2));
+    // fragColor.x = gl_FragCoord.x / resolution.x;
+    // fragColor.y = gl_FragCoord.y / resolution.y;
 
-    gl_FragColor = vec4(color, 1.0);
+    if(gl_FragCoord.x < 10.0 && gl_FragCoord.y< 10.0){
+        fragColor.x = 1.0;
+     }
+
+    if(gl_FragCoord.x > 1910.0 && gl_FragCoord.y< 10.0){
+        fragColor.y = 1.0;
+    }
+
+    if(gl_FragCoord.x > 1910.0 && gl_FragCoord.y> 919.0){
+        fragColor.z = 1.0;
+    }
+
+    if(gl_FragCoord.x > 80.0 && gl_FragCoord.x < 90.0 && gl_FragCoord.y> 919.0){
+        fragColor.w = 1.0;
+    }
+   
+    // =================
+
+
+    gl_FragColor  = fragColor;
 }
