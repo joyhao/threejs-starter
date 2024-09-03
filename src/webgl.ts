@@ -1,8 +1,8 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import Stats from 'stats.js';
-import vertex from './shaders/vertex.glsl?raw';
-import fragment from './shaders/fragment.glsl?raw';
+import vertex from './shaders/vertex.vs.glsl?raw';
+import fragment from './shaders/fragment.fs.glsl?raw';
 
 const initWebGL = (canvas: HTMLCanvasElement) => {
   const stats = new Stats();
@@ -49,7 +49,7 @@ const initWebGL = (canvas: HTMLCanvasElement) => {
 
   const material = new THREE.ShaderMaterial({
     uniforms: {
-      time: { value: 0 }
+      u_time: { value: 0 }
     },
     side: THREE.DoubleSide,
     wireframe: false,
@@ -76,9 +76,9 @@ const initWebGL = (canvas: HTMLCanvasElement) => {
     controls.update();
 
     let elapsedTime = clock.getElapsedTime();
-    material.uniforms.time.value = elapsedTime;
+    material.uniforms.u_time.value = elapsedTime ?? 0;
 
-    // requestAnimationFrame(render);
+    requestAnimationFrame(render);
     renderer.render(scene, camera);
 
     stats.end();
